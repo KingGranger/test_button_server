@@ -5,7 +5,6 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :last_name
       t.integer :phone_number
       t.boolean :terms_of_agreement
-
       t.timestamps
     end
   end
