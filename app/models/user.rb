@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :drawings
 
   def get_random_ticket_number id, phone_number
     alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
