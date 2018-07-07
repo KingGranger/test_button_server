@@ -6,6 +6,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.integer :max_winners
       t.datetime :event_datetime
       t.boolean :is_deleted
+      
 
       t.timestamps
     end
