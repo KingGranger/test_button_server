@@ -7,7 +7,8 @@ class UsersController < ApplicationController
 
 
   def create
-    @user = User.create(user_params)
+    @user = User.create({first_name: params[:first_name], last_name: params[:last_name], username: params[:username], phone_number: params[:phone_number], email: params[:email]})
+    # create the authentications here too.
     #raffle = @user.get_random_ticket_number(@user.id, @user.phone_number)
     #first_name: @user.first_name, last_name: @user.last_name, phone_number: @user.phone_number, raffle: raffle
     render json: @user
@@ -34,6 +35,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(:first_name, :last_name, :phone_number, :terms_of_agreement)
+    params.permit(:first_name, :last_name, :phone_number, :terms_of_agreement, :password, :email, :username)
   end
 end
