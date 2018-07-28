@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   has_many :drawings
+  has_secure_password
+
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create
 
   def get_random_ticket_number id, phone_number
     alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
