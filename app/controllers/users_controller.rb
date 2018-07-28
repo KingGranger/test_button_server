@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
 
   def create
-    @user = User.create({first_name: params[:first_name], last_name: params[:last_name], username: params[:username], phone_number: params[:phone_number], email: params[:email]})
+    @user = User.create(user_params)
     @authentication = Authentication.create({user: @user, auth_string: @user.password})
     # create the authentications here too.
     #raffle = @user.get_random_ticket_number(@user.id, @user.phone_number)
