@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   def index
-    @Users = User.all
+    if params[:username] || params[:id]
+      @Users = User.with_username(params[:username]).with_id(params[:id])
+    else
+      @Users = User.all
+    end
     render json: @Users
   end
 
@@ -32,7 +36,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.where(params[:id])
+    @user = User.find(params[:id])
   end
 
   def user_params
