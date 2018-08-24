@@ -1,7 +1,11 @@
 class EventTypesController < ApplicationController
   before_action :set_event_type, only: [:show, :update, :destroy]
   def index
-    @event_types = EventType.all
+    if params[:id] || params[:is_deleted]
+      @event_types = EventType.with_id(params[:id]).with_is_deleted(params[:is_deleted])
+    else
+      @event_types = EventType.all
+    end
     render json: @event_types
   end
 

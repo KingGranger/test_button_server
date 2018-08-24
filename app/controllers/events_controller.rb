@@ -1,8 +1,12 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :update, :destroy]
   def index
-    @events = Event.all
-    render json: @events
+    if params[:id] || params[:is_deleted]
+      @event = Event.with_id(params[:id]).with_is_deleted(params[:is_deleted])
+    else
+      @event = Event.all
+    end
+    render json: @event
   end
 
 
