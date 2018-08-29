@@ -1,8 +1,8 @@
 class EventTypesController < ApplicationController
   before_action :set_event_type, only: [:show, :update, :destroy]
   def index
-    if params[:id] || params[:is_deleted]
-      @event_types = EventType.with_id(params[:id]).with_is_deleted(params[:is_deleted])
+    if params[:id]
+      @event_types = EventType.with_id(params[:id])
     else
       @event_types = EventType.all
     end

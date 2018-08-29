@@ -1,8 +1,10 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :update, :destroy]
   def index
-    if params[:id] || params[:is_deleted]
-      @event = Event.with_id(params[:id]).with_is_deleted(params[:is_deleted])
+    if params[:id]
+      @event = Event.with_id(params[:id])
+    elsif params[:end_date] || params[:start_date]
+
     else
       @event = Event.all
     end

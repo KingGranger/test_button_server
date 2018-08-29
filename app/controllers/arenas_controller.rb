@@ -1,8 +1,8 @@
 class ArenasController < ApplicationController
   before_action :set_arena, only: [:show, :update, :destroy]
   def index
-    if params[:id] || params[:is_deleted]
-      @Arenas = Arena.with_id(params[:id]).with_is_deleted(params[:is_deleted])
+    if params[:id] 
+      @Arenas = Arena.with_id(params[:id])
     else
       @Arenas = Arena.all
     end
