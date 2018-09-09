@@ -10,16 +10,15 @@ user1 = User.create({first_name: 'brandon', last_name: 'harris', username: 'play
 user2 = User.create({first_name: 'lain', last_name: 'boe', username: 'player2', password: '1234', is_deleted: false, email: 'create@create.com'})
 user3 = User.create({first_name: 'ekko', last_name: 'apc', username: 'player3', password: '1234', is_deleted: false, email: 'league@legends.com'})
 
-concert = EventType.create(event_description: 'concert', is_deleted: false)
-game = EventType.create(event_description: 'game', is_deleted: false)
+concert = EventType.create(event_description: 'Concert', is_deleted: false)
+game = EventType.create(event_description: 'Basketball Game', is_deleted: false)
 
-oracle = Arena.create(arena_name: 'Oracle', city: 'Oakland', state: 'CA', is_deleted: false)
-msg = Arena.create(arena_name: 'MSG', city: 'Oakland', state: 'CA', is_deleted: false)
-barclays = Arena.create(arena_name: 'Barclays', city: 'Oakland', state: 'CA', is_deleted: false)
+msg = Arena.create(arena_name: 'MSG', city: 'New York City', state: 'NY', is_deleted: false)
+barclays = Arena.create(arena_name: 'Barclays', city: 'Brooklyn', state: 'NY', is_deleted: false)
 
-event1 = Event.create(arena: oracle, event_type: concert, max_winners: 4, event_datetime: DateTime.now)
-event2 = Event.create(arena: msg, event_type: game, max_winners: 2, event_datetime: DateTime.now)
-event3 = Event.create(arena: barclays, event_type: concert, max_winners: 10, event_datetime: DateTime.now)
+event2 = Event.create(arena: msg, event_type: game, max_winners: 2, event_datetime: DateTime.now, description: "NY Knicks vs LA Lakers")
+event3 = Event.create(arena: msg, event_type: concert, max_winners: 10, event_datetime: DateTime.now, description: "Beyonce Concert")
+event4 = Event.create(arena: msg, event_type: game, max_winners: 2, event_datetime: DateTime.now, description: "NY Knicks vs GS Warriors")
 
 drawing1 = Drawing.create(event: event2, user: user3, is_drawing_winner: false)
-drawing2 = Drawing.create(event: event1, user: user1, is_drawing_winner: true)
+drawing2 = Drawing.create(event: event3, user: user1, is_drawing_winner: true)
