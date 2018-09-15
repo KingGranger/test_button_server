@@ -12,7 +12,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    @authentication = Authentication.create({user: @user, auth_string: @user.password})
     # create the authentications here too.
     #raffle = @user.get_random_ticket_number(@user.id, @user.phone_number)
     #first_name: @user.first_name, last_name: @user.last_name, phone_number: @user.phone_number, raffle: raffle

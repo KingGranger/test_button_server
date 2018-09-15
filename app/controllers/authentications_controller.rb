@@ -2,21 +2,25 @@ class AuthenticationsController < ApplicationController
   require 'securerandom'
   require 'date'
 
-  def index
-    @Authentications = Authentication.all
-    render json: @Authentications
-  end
+  # def index
+  #   # @authentication = Authentication.create({user: @user, auth_string: @user.password})
+  #   byebug
+  #   if params[:id]
+  #     @authenications = Authentication.with_user_id(params[:id])
+  #   else
+  #     @authentications = Authentication
+  #   end
+  #   render json: @authentications
+  # end
 
   def create
     @user = User.find_by(email: params[:email])
-    @events = Event.joins(:arena, :event_type).where(arena_id: 1).uniq
     if @user && @user.authenticate(params[:password])
-      @authentication = Authentication.find_by(user: @user)
-      date = DateTime.now
-      session_id = SecureRandom.uuid
-      @authentication.update({session_id: session_id, last_request_datetime: date})
+      @events = Event.joins(:arena, :event_type).where(arena_id: 1).uniq
+      @authentication = Authentication.create_with(auth_string: @user.password).find_or_create_by(user: @user)
+      @authentication.update({session_id: SecureRandom.uuid, last_request_datetime: DateTime.now})
       @events = id_to_hash(@events)
-      render json: {email: @user.email, userID: @user.id, firstName: @user.first_name, lastName: @user.last_name, last_request_datetime: @authentication.last_request_datetime, sessionID: @authentication.session_id, events: @events}
+      render json: {email: @user.email, userId: @user.id, firstName: @user.first_name, lastName: @user.last_name, lastRequestDatetime: @authentication.last_request_datetime, sessionId: @authentication.session_id, events: @events}
     else
       render({json: {error: 'User is invalid'}, status: 401})
     end
@@ -24,11 +28,9 @@ class AuthenticationsController < ApplicationController
 
   def id_to_hash events
     events.map do |event|
-      p event.arena_id
       ans = event.attributes
-      ans[:arena] = Arena.where(id: event.arena_id).attributes
-      ans[:eventType] = EventType.where(id: event.event_type_id).attributes
-      p ans
+      ans[:arena] = Arena.where(id: event.arena_id)
+      ans[:eventType] = EventType.where(id: event.event_type_id)
       ans
     end
   end

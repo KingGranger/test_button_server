@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   resources :events
   resources :event_types
   resources :arenas
-  resources :authentications
+  resources :authentications, only: [:index, :create]
   resources :users
 end
